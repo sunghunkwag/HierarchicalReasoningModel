@@ -50,9 +50,9 @@ def create_synthetic_dataset(num_samples=1000, input_dim=1024, complexity_levels
                       X[medium_mask, 50:100].sum(dim=1, keepdim=True)) * 0.01
     
     # Hard targets: complex interactions
-    Y[hard_mask] = (torch.sin(X[hard_mask, :20].sum(dim=1)) * 
-                    torch.cos(X[hard_mask, 20:40].sum(dim=1)) + 
-                    X[hard_mask, 40:60].prod(dim=1, keepdim=True).clamp(-1, 1)).unsqueeze(1)
+    Y[hard_mask] = (torch.sin(X[hard_mask, :20].sum(dim=1, keepdim=True)) * 
+                    torch.cos(X[hard_mask, 20:40].sum(dim=1, keepdim=True)) + 
+                    X[hard_mask, 40:60].prod(dim=1).clamp(-1, 1).unsqueeze(1))
     
     return TensorDataset(X, Y)
 
